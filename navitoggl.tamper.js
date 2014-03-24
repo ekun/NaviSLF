@@ -58,28 +58,6 @@ function initPeriodDirectView(){
     //getWeekFromToggl();
 }
 
-function authenticateTogglUser() {
-    if (GM_getValue("api_token", 0) === 0) { 
-        //var username = new prompt("Toggl.com username (email)?");
-        //var password = new prompt("Toggl.com password?");
-        //var basicAuthUsernameAndPassword = "Basic " + btoa(username + ":" + password);
-        var answer = prompt("Toggl.com api token?");
-        GM_setValue("api_token", answer);
-    }
-    
-    var apiToken = GM_getValue("api_token", 0);
-    var basicAuth = "Basic " + btoa(apiToken + ":api_token");
-    
-    GM_xmlhttpRequest({
-        method: "GET",
-        url: 'https://www.toggl.com/api/v8/me',
-        headers: {"Authorization": basicAuth, 'Content-Type': 'application/json'},
-        onload: function(response) {
-            console.log(eval('(' + response.responseText + ')'));
-        }
-    });
-}
-
 function getWeekFromToggl() {
     var dates = getDateRange();
     var userAgent = 'erlendve@hotmail.com';
@@ -90,7 +68,7 @@ function getWeekFromToggl() {
     
     GM_xmlhttpRequest({
         method: "GET",
-        url: 'https://toggl.com/reports/api/v2/weekly?user_agent=' + userAgent + '&workspace_id=' + workspaceId + '&since=' + startDate + '&grouping=users',
+        url: 'BUGZILLA-API-URL/weekly?user=' + userAgent + '&workspace_id=' + workspaceId + '&weekNr=' + startDate,
         headers: {"Authorization": "Basic NGM1Mzk1OTVlMjdjMDU1NmU0NmNkZTJhNGNkMDg2MTE6YXBpX3Rva2Vu", 'Content-Type': 'application/json'},
         onload: function(response) {
             //alert(response.responseText);
@@ -122,7 +100,7 @@ function updateNaviwepField(project, dates) {
     var clientName = project.title.client;
     var hours = project.totals;
     var trInDom = $("tr:contains(" + projectName + ")").css('background-color', '#39b3d7');
-    console.log('Updating ' + project.title.project + ' for ' + project.title.client + " " + trInDom.find('td').length);
+    console.log('Updating ' + projectName + ' for ' + project.title.client + " " + trInDom.find('td').length);
     
     for (var i = 0; i < dates.length; i++) {
         if (!hours[i]) continue;
