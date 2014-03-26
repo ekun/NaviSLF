@@ -2,7 +2,7 @@
 // @name       NaviSLF
 // @namespace  https://github.com/ekun/NaviSLF
 // @downloadURL https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
-// @version    0.1
+// @version    0.1.1
 // @description  imports SLF-bugzilla hours into Naviwep
 // @match      https://naviwep.steria.no/NaviWEB/timereg_direct.aspx
 // @copyright  2014+, Marius Nedal Glittum
@@ -71,35 +71,28 @@ function getDateRange() {
     for (var i = 0; i < days.length; i++) {
         dates[i] = days[i].title.substring(6);
     }
-    console.log(dates);
+
     return dates;
 }
 
 function updateNaviwepField(project, dates) {
     var projectName = project[0];
     var clientName = project[1];
-    var hours = "" + project[2];
+    var hours = project[2];
     var date = project[3];
     var trInDom = $("tr:contains(" + projectName + ")");
     console.log(date + ' :: Updating ' + projectName + ' for ' + clientName + ' with ' + hours + ' hours.');
 
     if(trInDom.length >= 2) {
-      var temp = jQuery.extend(true, {}, trInDom);
-      if(trInDom.length >= 2) {
-         trInDom = $("tr:not(:contains(ikke Bugzilla))");
-      }
-      trInDom = $("tr:contains(" + clientName + ")");
-      if(trInDom.lenth === 0) {
-        trInDom = jQuery.extend(true, {}, temp);
-      }
-      if(trInDom.lenth === 0) {
-        trInDom = jQuery.extend(true, {}, temp);
-      }
+      trInDom = $("tr:contains(" + projectName + "):contains(" + clientName + ")");
+    }
+    if(trInDom.length === 0 || trInDom.length >= 2) {
+        trInDom = $("tr:contains(" + projectName + "):contains(møter Bugzilla)");
     }
     if(trInDom.length >= 1) {
         trInDom.css('background-color', '#39b3d7');
         var md = trInDom.find('input[id$="_RNTB_' + date + '"]');
-        md.val(hours.replace(".", ","));
+        md.val(hours);
         md.width("100px");
     } else {
         console.error('Could not find project ' + projectName);
