@@ -87,7 +87,7 @@ function updateNaviwepField(project, dates) {
       trInDom = $("tr:contains(" + projectName + "):contains(" + clientName + ")");
     }
     if(trInDom.length === 0 || trInDom.length >= 2) {
-        trInDom = $("tr:contains(" + projectName + "):contains(møter Bugzilla)");
+        trInDom = $("tr:contains(" + projectName + "):not(:contains(ikke Bugzilla))");
     }
     if(trInDom.length >= 1) {
         trInDom.css('background-color', '#39b3d7');
