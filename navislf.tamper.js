@@ -84,7 +84,17 @@ function updateNaviwepField(project, dates) {
     console.log(date + ' :: Updating ' + projectName + ' for ' + clientName + ' with ' + hours + ' hours.');
 
     if(trInDom.length >= 2) {
-      trInDom = $("tr:contains(" + clientName + ")").css('background-color', '#39b3d7');
+      var temp = jQuery.extend(true, {}, trInDom);
+      if(trInDom.length >= 2) {
+         trInDom = $("tr:not(:contains(ikke Bugzilla))");
+      }
+      trInDom = $("tr:contains(" + clientName + ")");
+      if(trInDom.lenth === 0) {
+        trInDom = jQuery.extend(true, {}, temp);
+      }
+      if(trInDom.lenth === 0) {
+        trInDom = jQuery.extend(true, {}, temp);
+      }
     }
     if(trInDom.length >= 1) {
         trInDom.css('background-color', '#39b3d7');
