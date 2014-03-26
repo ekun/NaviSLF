@@ -51,7 +51,7 @@ function getWeekFromToggl() {
 
     GM_xmlhttpRequest({
         method: "GET",
-        url: 'http://localhost:8080/untitled/timer/weekly?user=' + username + '&start=' + startDate + '&end=' + endDate ,
+        url: 'https://utv-appserver01.slf.dep.no/bugzfront/timer/weekly?user=' + username + '&start=' + startDate + '&end=' + endDate ,
         onload: function(response) {
             result = eval('(' + response.responseText + ')');
 
