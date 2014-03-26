@@ -1,11 +1,11 @@
 // ==UserScript==
-// @name       NaviToggl2
-// @namespace  https://github.com/erlendve/NaviToggl
-// @downloadURL https://raw.github.com/erlendve/NaviToggl/master/navitoggl.tamper.js
+// @name       NaviSLF
+// @namespace  https://github.com/ekun/NaviSLF
+// @downloadURL https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
 // @version    0.1
-// @description  imports toggl.com weekly hours into Naviwep
+// @description  imports SLF-bugzilla hours into Naviwep
 // @match      https://naviwep.steria.no/NaviWEB/timereg_direct.aspx
-// @copyright  2014+, Erlend Vestad
+// @copyright  2014+, Marius Nedal Glittum
 // @require     http://code.jquery.com/jquery-1.10.1.min.js
 // ==/UserScript==
 
@@ -44,16 +44,17 @@ function initPeriodDirectView(){
 function getWeekFromToggl() {
     var dates = getDateRange();
     var startDate = dates[0].substring(0,4) + '-' + dates[0].substring(4,6) + '-' + dates[0].substring(6);
-    console.log("startdate= " + dates[0].substring(0,4) + '-' + dates[0].substring(4,6) + '-' + dates[0].substring(6));
+    var endDate = dates[(dates.length-1)].substring(0,4) + '-' + dates[(dates.length-1)].substring(4,6) + '-' + dates[(dates.length-1)].substring(6);
+    var userString = $("[id$='UserInfo']").text();
+    var username = userString.substring(userString.indexOf("(")+1, userString.indexOf(")")).toLowerCase();
+    console.log('Located steria username: ' + username);
 
     GM_xmlhttpRequest({
         method: "GET",
-        url: 'http://localhost:8080/untitled/timer/weekly?dates='+dates,
+        url: 'http://localhost:8080/untitled/timer/weekly?user=' + username + '&start=' + startDate + '&end=' + endDate ,
         onload: function(response) {
-            //alert(response.responseText);
-            console.log(eval('(' + response.responseText + ')'));
             result = eval('(' + response.responseText + ')');
-            //console.log(result.data[0][1].details);
+
             details = result;
 
             for (var index in details) {
@@ -76,25 +77,23 @@ function getDateRange() {
 
 function updateNaviwepField(project, dates) {
     var projectName = project[0];
-    if(projectName === "Teknisk-plattform") projectName = projectName.replace("-", " ")
     var clientName = project[1];
-    var hours = project[2];
+    var hours = "" + project[2];
     var date = project[3];
     var trInDom = $("tr:contains(" + projectName + ")");
-    console.log('Updating ' + projectName + ' for ' + clientName + ' with ' + hours ' hours.');
+    console.log(date + ' :: Updating ' + projectName + ' for ' + clientName + ' with ' + hours + ' hours.');
 
-    if(trInDom.length > 1) {
+    if(trInDom.length >= 2) {
       trInDom = $("tr:contains(" + clientName + ")").css('background-color', '#39b3d7');
-    } else if(trInDom.length === 0) {
-        console.log('Could not find project ' + projectName);
-        return ;
     }
-    trInDom.css('background-color', '#39b3d7');
-    var md = trInDom.find('input[id$="_RNTB_' + date + '"]');
-    md.val(hours);
-    md.width("100px");
+    if(trInDom.length >= 1) {
+        trInDom.css('background-color', '#39b3d7');
+        var md = trInDom.find('input[id$="_RNTB_' + date + '"]');
+        md.val(hours.replace(".", ","));
+        md.width("100px");
+    } else {
+        console.error('Could not find project ' + projectName);
+    }
 }
 
 initPage();
-
-//$('#contentDiv').click(function() {if (!meny.isOpen())meny.close();});
