@@ -2,12 +2,15 @@
 // @name       NaviSLF
 // @namespace  https://github.com/ekun/NaviSLF
 // @downloadURL https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
-// @version    0.1.2
+// @version    0.2.0
 // @description  imports SLF-bugzilla hours into Naviwep
 // @match      https://naviwep.steria.no/NaviWEB/timereg_direct.aspx
 // @copyright  2014+, Marius Nedal Glittum
 // @require     http://code.jquery.com/jquery-1.10.1.min.js
 // ==/UserScript==
+/*
+ * Utvikler tar ikke ansvar for at timene blir feil i NaviWep 
+ */
 
 if ( !String.prototype.contains ) {
     String.prototype.contains = function() {
@@ -83,10 +86,9 @@ function updateNaviwepField(project, dates) {
     var trInDom = $("tr:contains(" + projectName + ")");
     console.log(date + ' :: Updating ' + projectName + ' for ' + clientName + ' with ' + hours + ' hours.');
 
-    if(trInDom.length >= 2) {
+    if(trInDom.length >= 2 && clientName !== "Bugzilla") {
       trInDom = $("tr:contains(" + projectName + "):contains(" + clientName + ")");
-    }
-    if(trInDom.length === 0 || trInDom.length >= 2) {
+    } else {
         trInDom = $("tr:contains(" + projectName + "):not(:contains(ikke Bugzilla))");
     }
     if(trInDom.length >= 1) {
@@ -95,8 +97,18 @@ function updateNaviwepField(project, dates) {
         md.val(hours);
         md.width("100px");
     } else {
-        console.error('Could not find project ' + projectName);
+        projectNotFound(projectName, clientName);
     }
+}
+
+function projectNotFound(projectName, clientName) {
+    var errorField = $("[id$='NaviSLFLogField']");
+    
+    if(errorField.lenth == 0) {
+        $("[class$='CurrentPeriod']").after("<div id='NaviSLFLogField' style='margin-left: auto;margin-right: auto;width: 30em;color:red;'><h3>Hendelseslog</h3></div>");
+        var errorField = $("[id$='NaviSLFLogField']");
+    }
+    errorField.append("<p>Fant ikke NaviWep prosjekt for <b>"+projectName+":"+clientName+"</b></p>");
 }
 
 initPage();
