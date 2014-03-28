@@ -105,7 +105,7 @@ function projectNotFound(projectName, clientName) {
     var errorField = $("[id$='NaviSLFLogField']");
     
     if(errorField.lenth == 0) {
-        $("[class$='CurrentPeriod']").after("<div id='NaviSLFLogField' style='margin-left: auto;margin-right: auto;width: 30em;color:red;'><h3>Hendelseslog</h3></div>");
+        $("[class$='CurrentPeriod']").after("<div id='NaviSLFLogField' style='margin-left: auto;margin-right: auto;width: 30em;color:red;'><h3>Errors</h3></div>");
         var errorField = $("[id$='NaviSLFLogField']");
     }
     errorField.append("<p>Fant ikke NaviWep prosjekt for <b>"+projectName+":"+clientName+"</b></p>");
