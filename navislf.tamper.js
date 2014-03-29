@@ -35,16 +35,16 @@ function initPage(){
         initPeriodDirectView();
     }
 
-    getWeekFromToggl();
+    getBugzillaHoursForWeek();
 }
 
 
 function initPeriodDirectView(){
-    //onPeriodChange(getWeekFromToggl);
-    //getWeekFromToggl();
+    //onPeriodChange(getBugzillaHoursForWeek);
+    //getBugzillaHoursForWeek();
 }
 
-function getWeekFromToggl() {
+function getBugzillaHoursForWeek() {
     var dates = getDateRange();
     var startDate = dates[0].substring(0,4) + '-' + dates[0].substring(4,6) + '-' + dates[0].substring(6);
     var endDate = dates[(dates.length-1)].substring(0,4) + '-' + dates[(dates.length-1)].substring(4,6) + '-' + dates[(dates.length-1)].substring(6);
@@ -102,13 +102,17 @@ function updateNaviwepField(project, dates) {
 }
 
 function projectNotFound(projectName, clientName) {
+    logHendelse("<p style='color:red;'>Fant ikke NaviWep prosjekt for <b>"+projectName+":"+clientName+"</b></p>");
+}
+
+function logHendelse(message) {
     var errorField = $("[id$='NaviSLFLogField']");
     
     if(errorField.lenth == 0) {
-        $("[class$='CurrentPeriod']").after("<div id='NaviSLFLogField' style='margin-left: auto;margin-right: auto;width: 30em;color:red;'><h3>Errors</h3></div>");
+        $("[class$='CurrentPeriod']").after("<div id='NaviSLFLogField' style='margin-left: auto;margin-right: auto;width: 30em;'><h3 style='color:red;'>Errors</h3></div>");
         var errorField = $("[id$='NaviSLFLogField']");
     }
-    errorField.append("<p>Fant ikke NaviWep prosjekt for <b>"+projectName+":"+clientName+"</b></p>");
+    errorField.append(message);
 }
 
 initPage();
