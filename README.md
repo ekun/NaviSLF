@@ -1,4 +1,4 @@
-NaviToggl
+NaviSLF
 =========
 
-Integrates Toggl.com with Naviwep
+Integrates SLF Bugzilla with Naviwep
