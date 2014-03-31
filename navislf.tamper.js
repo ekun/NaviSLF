@@ -56,13 +56,17 @@ function getBugzillaHoursForWeek() {
         method: "GET",
         url: 'https://utv-appserver01.slf.dep.no/bugzfront/timer/weekly?user=' + username + '&start=' + startDate + '&end=' + endDate ,
         onload: function(response) {
-            result = eval('(' + response.responseText + ')');
-
-            details = result;
-
-            for (var index in details) {
-                var project = details[index];
-                updateNaviwepField(project, dates);
+            if(response.status == 200) {
+                result = eval('(' + response.responseText + ')');
+    
+                details = result;
+    
+                for (var index in details) {
+                    var project = details[index];
+                    updateNaviwepField(project, dates);
+                }
+            } else {
+				logHendelse("<p style='color:red; margin: 0; padding:0;'>Fikk ikke kontakt med Bugzilla.</p>");
             }
         }
     });
@@ -102,15 +106,15 @@ function updateNaviwepField(project, dates) {
 }
 
 function projectNotFound(projectName, clientName) {
-    logHendelse("<p style='color:red;'>Fant ikke NaviWep prosjekt for <b>"+projectName+":"+clientName+"</b></p>");
+    logHendelse("<p style='color:red; margin: 0; padding:0;'>Fant ikke NaviWep prosjekt for <b>"+projectName+":"+clientName+"</b></p>");
 }
 
 function logHendelse(message) {
     var errorField = $("[id$='NaviSLFLogField']");
     
-    if(errorField.lenth == 0) {
-        $("[class$='CurrentPeriod']").after("<div id='NaviSLFLogField' style='margin-left: auto;margin-right: auto;width: 30em;'><h3 style='color:red;'>Errors</h3></div>");
-        var errorField = $("[id$='NaviSLFLogField']");
+    if(errorField.length == 0) {
+        $("[class='CurrentPeriod']").after("<div id='NaviSLFLogField' style='margin-left: auto;margin-right: auto;width: 30em; border-style: solid; border-color: red; padding: 10px; margin-top: 15px; margin-bottom: 15px;'><h3 style='color:red; margin-top: 5px;'>Errors</h3></div>");
+        errorField = $("[id$='NaviSLFLogField']");
     }
     errorField.append(message);
 }
