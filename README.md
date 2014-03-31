@@ -9,6 +9,10 @@ Installering
 * På github, gå til NaviSLF.tamper.js
 * Trykk på "Raw", og TamperMonkey vil tilby å installere
 
+* I Firefox, installer plugin "GreaseMonkey"
+* På github, gå til NaviSLF.tamper.js
+* Trykk på "Raw", og GreaseMonkey vil tilby å installere
+
 Features
 --------
 * **NY**: Twitter Bootstrap styling for tilbakemeldinger
@@ -17,4 +21,4 @@ Features
 TODO
 ----
 * Integrere NaviSane funksjoner inn i scriptet
-* 
+
