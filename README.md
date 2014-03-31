@@ -5,11 +5,13 @@ Integrering av REST-kall mot SLF Bugzilla for uthenting av timer ført for datoe
 
 Installering
 ------------
-* I Chrome, installer plugin "TamperMonkey"
+#### Chrome
+* Installer plugin "TamperMonkey"
 * På github, gå til NaviSLF.tamper.js
 * Trykk på "Raw", og TamperMonkey vil tilby å installere
 
-* I Firefox, installer plugin "GreaseMonkey"
+#### Firefox
+* Installer plugin "GreaseMonkey"
 * På github, gå til NaviSLF.tamper.js
 * Trykk på "Raw", og GreaseMonkey vil tilby å installere
 
