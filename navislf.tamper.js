@@ -1,9 +1,11 @@
 // ==UserScript==
 // @name       NaviSLF
 // @namespace  https://github.com/ekun/NaviSLF
+// @homepage    https://github.com/ekun/NaviSLF
 // @downloadURL https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
-// @version    0.4.2
-// @description  imports SLF-bugzilla hours into Naviwep
+// @updateURL   https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
+// @version    0.4.3
+// @description  Imports SLF-bugzilla hours into Naviwep
 // @match      https://naviwep.steria.no/NaviWEB/timereg_direct.aspx
 // @copyright  2014+, Marius Nedal Glittum
 // @require     http://code.jquery.com/jquery-1.10.1.min.js
