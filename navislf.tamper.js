@@ -2,11 +2,12 @@
 // @name       NaviSLF
 // @namespace  https://github.com/ekun/NaviSLF
 // @downloadURL https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
-// @version    0.3.0
+// @version    0.4.0
 // @description  imports SLF-bugzilla hours into Naviwep
 // @match      https://naviwep.steria.no/NaviWEB/timereg_direct.aspx
 // @copyright  2014+, Marius Nedal Glittum
 // @require     http://code.jquery.com/jquery-1.10.1.min.js
+// @resource 	bootstrapCss	https://raw.githubusercontent.com/twbs/bootstrap/master/dist/css/bootstrap.css
 // ==/UserScript==
 /*
  * Utvikler tar ikke ansvar for at timene blir feil i NaviWep 
@@ -45,6 +46,9 @@ function initPeriodDirectView(){
 }
 
 function getBugzillaHoursForWeek() {
+    var cssTxt  = GM_getResourceText("bootstrapCss");
+    GM_addStyle (cssTxt);
+    
     var dates = getDateRange();
     var startDate = dates[0].substring(0,4) + '-' + dates[0].substring(4,6) + '-' + dates[0].substring(6);
     var endDate = dates[(dates.length-1)].substring(0,4) + '-' + dates[(dates.length-1)].substring(4,6) + '-' + dates[(dates.length-1)].substring(6);
@@ -66,7 +70,7 @@ function getBugzillaHoursForWeek() {
                     updateNaviwepField(project, dates);
                 }
             } else {
-				logHendelse("<p style='color:red; margin: 0; padding:0;'>Fikk ikke kontakt med Bugzilla.</p>");
+				logHendelse("<p style='margin: 0; padding:0;'>Fikk ikke kontakt med Bugzilla.</p>");
             }
         }
     });
@@ -106,14 +110,14 @@ function updateNaviwepField(project, dates) {
 }
 
 function projectNotFound(projectName, clientName) {
-    logHendelse("<p style='color:red; margin: 0; padding:0;'>Fant ikke NaviWep prosjekt for <b>"+projectName+":"+clientName+"</b></p>");
+    logHendelse("<p style='margin: 0; padding:0;'>Fant ikke NaviWep prosjekt for <b>"+projectName+":"+clientName+"</b></p>");
 }
 
 function logHendelse(message) {
     var errorField = $("[id$='NaviSLFLogField']");
     
     if(errorField.length == 0) {
-        $("[class='CurrentPeriod']").after("<div id='NaviSLFLogField' style='margin-left: auto;margin-right: auto;width: 30em; border-style: solid; border-color: red; padding: 10px; margin-top: 15px; margin-bottom: 15px;'><h3 style='color:red; margin-top: 5px;'>Errors</h3></div>");
+        $("[class='CurrentPeriod']").after("<div class='row' style='padding-top: 10px;'><div class='col-md-4' style='float: none; margin: 0 auto;'><div id='NaviSLFLogField' class='alert alert-danger'><strong>Feil</strong></div></div></div>");
         errorField = $("[id$='NaviSLFLogField']");
     }
     errorField.append(message);
