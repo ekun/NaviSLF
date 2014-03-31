@@ -7,7 +7,8 @@
 // @match      https://naviwep.steria.no/NaviWEB/timereg_direct.aspx
 // @copyright  2014+, Marius Nedal Glittum
 // @require     http://code.jquery.com/jquery-1.10.1.min.js
-// @resource 	bootstrapCss	https://raw.githubusercontent.com/twbs/bootstrap/master/dist/css/bootstrap.css
+// @resource 	bootstrapCss	https://raw.githubusercontent.com/ekun/navislf/master/bootstrap.css
+// @resource 	bootstrap2Css	https://raw.githubusercontent.com/ekun/navislf/master/bootstrap-theme.css
 // ==/UserScript==
 /*
  * Utvikler tar ikke ansvar for at timene blir feil i NaviWep 
@@ -48,6 +49,8 @@ function initPeriodDirectView(){
 function getBugzillaHoursForWeek() {
     var cssTxt  = GM_getResourceText("bootstrapCss");
     GM_addStyle (cssTxt);
+    var css2Txt  = GM_getResourceText("bootstrap2Css");
+    GM_addStyle (css2Txt);
     
     var dates = getDateRange();
     var startDate = dates[0].substring(0,4) + '-' + dates[0].substring(4,6) + '-' + dates[0].substring(6);
