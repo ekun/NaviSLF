@@ -16,20 +16,14 @@
  * Utvikler tar ikke ansvar for at timene blir feil i NaviWep 
  */
 
-if ( !String.prototype.contains ) {
-    String.prototype.contains = function() {
-        return String.prototype.indexOf.apply( this, arguments ) !== -1;
-    };
-}
-
-String.prototype.appearsIn = function() {
-    return String.prototype.indexOf.apply( arguments[0], this ) !== -1;
+String.prototype.endsWith = function(suffix) {
+    return this.indexOf(suffix, this.length - suffix.length) !== -1;
 };
 
 function initPage(){
     killThoseEffingMenuAnimations();
 
-    if("/period_direct.aspx".appearsIn(document.location.pathname)) {
+    if(document.location.pathname.endsWith("timereg_direct.aspx")) {
        getBugzillaHoursForWeek();
     }
 }
