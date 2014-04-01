@@ -4,13 +4,13 @@
 // @homepage    https://github.com/ekun/NaviSLF
 // @downloadURL https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
 // @updateURL   https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
-// @version    0.4.4
+// @version    0.4.5
 // @description  Imports SLF-bugzilla hours into Naviwep
 // @match      https://naviwep.steria.no/NaviWEB/timereg_direct.aspx
 // @copyright  2014+, Marius Nedal Glittum
 // @require     http://code.jquery.com/jquery-1.10.1.min.js
-// @resource 	bootstrapCss	https://raw.githubusercontent.com/ekun/navislf/master/bootstrap.css
-// @resource 	bootstrap2Css	https://raw.githubusercontent.com/ekun/navislf/master/bootstrap-theme.css
+// @resource 	bootstrapCss	https://raw.githubusercontent.com/ekun/navislf/master/css/bootstrap.css
+// @resource 	bootstrap2Css	https://raw.githubusercontent.com/ekun/navislf/master/css/bootstrap-theme.css
 // ==/UserScript==
 /*
  * Utvikler tar ikke ansvar for at timene blir feil i NaviWep 
@@ -26,18 +26,12 @@ String.prototype.appearsIn = function() {
     return String.prototype.indexOf.apply( arguments[0], this ) !== -1;
 };
 
-function onPeriodChange(handler){
-    $(".CurrentPeriod").on("DOMNodeInserted", function(e){
-        if (e.target.id == "ctl00_ContentPlaceHolder1_LBL_Approved"){
-            handler();
-        }
-    });
-}
-
 function initPage(){
     killThoseEffingMenuAnimations();
-    
-    getBugzillaHoursForWeek();
+
+    if(("/period_direct.aspx".appearsIn(document.location.pathname)) {
+       getBugzillaHoursForWeek();
+    }
 }
 
 
