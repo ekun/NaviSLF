@@ -29,7 +29,7 @@ String.prototype.appearsIn = function() {
 function initPage(){
     killThoseEffingMenuAnimations();
 
-    if(("/period_direct.aspx".appearsIn(document.location.pathname)) {
+    if("/period_direct.aspx".appearsIn(document.location.pathname)) {
        getBugzillaHoursForWeek();
     }
 }
