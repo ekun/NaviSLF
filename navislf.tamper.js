@@ -4,7 +4,7 @@
 // @homepage    https://github.com/ekun/NaviSLF
 // @downloadURL https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
 // @updateURL   https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
-// @version    0.4.3
+// @version    0.4.4
 // @description  Imports SLF-bugzilla hours into Naviwep
 // @match      https://naviwep.steria.no/NaviWEB/timereg_direct.aspx
 // @copyright  2014+, Marius Nedal Glittum
@@ -35,18 +35,11 @@ function onPeriodChange(handler){
 }
 
 function initPage(){
-    if ("/period_direct.aspx".appearsIn(document.location.pathname)){
-        initPeriodDirectView();
-    }
-
+    killThoseEffingMenuAnimations();
+    
     getBugzillaHoursForWeek();
 }
 
-
-function initPeriodDirectView(){
-    //onPeriodChange(getBugzillaHoursForWeek);
-    //getBugzillaHoursForWeek();
-}
 
 function getBugzillaHoursForWeek() {
     var cssTxt  = GM_getResourceText("bootstrapCss");
@@ -127,5 +120,11 @@ function logHendelse(message) {
     }
     errorField.append(message);
 }
+
+function killThoseEffingMenuAnimations(){
+    Telerik.Web.UI.AnimationSettings.prototype.get_type = function(){return 0;}
+    Telerik.Web.UI.AnimationSettings.prototype.get_duration = function(){return 0;}
+    Telerik.Web.UI.RadMenu.prototype.get_collapseDelay = function(){return 0;}
+}  
 
 initPage();
