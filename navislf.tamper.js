@@ -6,7 +6,7 @@
 // @updateURL   https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
 // @version    0.4.5
 // @description  Imports SLF-bugzilla hours into Naviwep
-// @match      https://naviwep.steria.no/NaviWEB/timereg_direct.aspx
+// @match      https://naviwep.steria.no/NaviWEB/*
 // @copyright  2014+, Marius Nedal Glittum
 // @require     http://code.jquery.com/jquery-1.10.1.min.js
 // @resource 	bootstrapCss	https://raw.githubusercontent.com/ekun/navislf/master/css/bootstrap.css
