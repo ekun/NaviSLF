@@ -4,7 +4,7 @@
 // @homepage    https://github.com/ekun/NaviSLF
 // @downloadURL https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
 // @updateURL   https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
-// @version    0.5.5
+// @version    0.5.6
 // @description  Imports SLF-bugzilla hours into Naviwep
 // @match      https://naviwep.steria.no/NaviWEB/*
 // @copyright  2014+, Marius Nedal Glittum
@@ -114,7 +114,7 @@ function saneCellAlignment(){
 }
 
 function projectNotFound(projectName, clientName, hours) {
-    logHendelse("<p style='margin: 0; padding:0;'>Fant ikke NaviWep prosjektet <b>"+projectName+" med komponent "+clientName+". ("+hours+"t)</b></p>");
+    logHendelse("<p style='margin: 0; padding:0;'>Fant ikke NaviWep prosjektet <b>"+projectName+"</b> med komponent <b>"+clientName+"</b>. ("+hours+"t)</p>");
 }
 
 function logHendelse(message) {
