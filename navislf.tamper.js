@@ -4,7 +4,7 @@
 // @homepage    https://github.com/ekun/NaviSLF
 // @downloadURL https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
 // @updateURL   https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
-// @version    0.5.6
+// @version    0.6.0
 // @description  Imports SLF-bugzilla hours into Naviwep
 // @match      https://naviwep.steria.no/NaviWEB/*
 // @copyright  2014+, Marius Nedal Glittum
@@ -56,6 +56,7 @@ function getBugzillaHoursForWeek() {
         method: "GET",
         url: 'https://utv-appserver01.slf.dep.no/bugzfront/timer/weekly?user=' + username + '&start=' + startDate + '&end=' + endDate ,
         onload: function(response) {
+            console.log("Henter BUGZILLA-timer for perioden "+startDate+" til "+endDate+".");
             if(response.status == 200) {
                 result = eval('(' + response.responseText + ')');
     
@@ -66,7 +67,27 @@ function getBugzillaHoursForWeek() {
                     updateNaviwepField(project, dates);
                 }
             } else {
-				logHendelse("<p style='margin: 0; padding:0;'>Fikk ikke kontakt med Bugzilla.</p>");
+		logHendelse("<p style='margin: 0; padding:0;'>Fikk ikke kontakt med Bugzfront for å hente timer.</p>");
+            }
+        }
+    });
+    
+    GM_xmlhttpRequest({
+        method: "GET",
+        url: 'https://utv-appserver01.slf.dep.no/bugzfront/admin/index?user=sgrenbor&start=' + startDate + '&end=' + endDate ,
+        onload: function(response) {
+            console.log("Henter ADMIN-timer for perioden "+startDate+" til "+endDate+".");
+            if(response.status == 200) {
+                result = eval('(' + response.responseText + ')');
+    
+                details = result;
+    
+                for (var index in details) {
+                    var project = details[index];
+                    updateAdminNaviwepField(project, dates);
+                }
+            } else {
+		logHendelse("<p style='margin: 0; padding:0;'>Fikk ikke kontakt med Bugzfront for å hente admintimer.</p>");
             }
         }
     });
@@ -103,6 +124,35 @@ function updateNaviwepField(project, dates) {
         trInDom.css('background-color', '#39b3d7');
         var md = trInDom.find('input[id$="_RNTB_' + date + '"]');
         md.val(hours);
+        md.width("100px");
+    } else {
+        projectNotFound(projectName, clientName, hours);
+    }
+}
+
+function updateAdminNaviwepField(project, dates) {
+    var projectName = project[0];
+    var clientName = project[1];
+    var hours = project[2];
+    var date = project[3];
+    var trInDom = $("tr:contains(" + projectName + ")");
+    console.log(date + ' :: Updating ' + projectName + ' for ' + clientName + ' with ' + hours + ' hours.');
+    
+    if(projectName === "MELK") {
+	projectName = projectName + "):not(:contains(LDB)";
+    }
+    
+    if(clientName !== "Bugzilla") {
+	trInDom = $("tr:contains(" + projectName + "):contains(" + clientName + ")");
+    } else {
+        trInDom = $("tr:contains(" + projectName + "):contains(Bugzilla):not(:contains(ikke Bugzilla))");
+    }
+    if(trInDom.length === 1) {
+        trInDom.css('background-color', '#39b3d7');
+        var md = trInDom.find('input[id$="_RNTB_' + date + '"]');
+        var verdi = +(md.text());
+
+        md.val(verdi+hours);
         md.width("100px");
     } else {
         projectNotFound(projectName, clientName, hours);
