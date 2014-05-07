@@ -4,7 +4,7 @@
 // @homepage    https://github.com/ekun/NaviSLF
 // @downloadURL https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
 // @updateURL   https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
-// @version    0.6.1
+// @version    0.6.2
 // @description  Imports SLF-bugzilla hours into Naviwep
 // @match      https://naviwep.steria.no/NaviWEB/*
 // @copyright  2014+, Marius Nedal Glittum
@@ -74,7 +74,7 @@ function getBugzillaHoursForWeek() {
     
     GM_xmlhttpRequest({
         method: "GET",
-                url: 'https://utv-appserver01.slf.dep.no/bugzfront/admin/index?user='+ username +'&start=' + startDate + '&end=' + endDate ,
+                url: 'https://utv-appserver01.slf.dep.no/bugzfront/timer/admin?user='+ username +'&start=' + startDate + '&end=' + endDate ,
         onload: function(response) {
             console.log("Henter ADMIN-timer for perioden "+startDate+" til "+endDate+".");
             if(response.status == 200) {
