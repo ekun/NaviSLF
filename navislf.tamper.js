@@ -4,7 +4,7 @@
 // @homepage    https://github.com/ekun/NaviSLF
 // @downloadURL https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
 // @updateURL   https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
-// @version    0.6.5
+// @version    0.6.6
 // @description  Imports SLF-bugzilla hours into Naviwep
 // @match      https://naviwep.steria.no/NaviWEB/*
 // @copyright  2014+, Marius Nedal Glittum
@@ -82,13 +82,11 @@ function getBugzillaHoursForWeek() {
     
                 details = result;
     
-                if(!details['exception'] || details.size() < 1) {
+                if(!details['exception']) {
                 	for (var index in details) {
                     		var project = details[index];
                     		updateAdminNaviwepField(project, dates);
                 	}
-		} else {
-			console.log("Du har ingen ADMIN-timer for denne perioden.")
 		}
             } else {
 		logHendelse("<p style='margin: 0; padding:0;'>Fikk ikke kontakt med Bugzfront for å hente admintimer.</p>");
