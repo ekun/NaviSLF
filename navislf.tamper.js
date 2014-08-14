@@ -4,7 +4,7 @@
 // @homepage    https://github.com/ekun/NaviSLF
 // @downloadURL https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
 // @updateURL   https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
-// @version    0.6.7
+// @version    0.6.8
 // @description  Imports SLF-bugzilla hours into Naviwep
 // @match      https://naviwep.steria.no/NaviWEB/*
 // @copyright  2014+, Marius Nedal Glittum
@@ -50,6 +50,9 @@ function getBugzillaHoursForWeek() {
     console.log('Located steria username: ' + username);
     if(username === "cfornes") {
         username = "camf";
+    }
+    if(username === "iholen") {
+        username = "ikh";
     }
 
     GM_xmlhttpRequest({
