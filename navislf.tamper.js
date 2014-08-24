@@ -4,7 +4,7 @@
 // @homepage    https://github.com/ekun/NaviSLF
 // @downloadURL https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
 // @updateURL   https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
-// @version    0.6.8
+// @version    0.7.0
 // @description  Imports SLF-bugzilla hours into Naviwep
 // @match      https://naviwep.steria.no/NaviWEB/*
 // @copyright  2014+, Marius Nedal Glittum
@@ -35,6 +35,19 @@ function initPage(){
     }
 }
 
+(function(open) {
+    XMLHttpRequest.prototype.open = function(method, url, async, user, pass) {
+        this.addEventListener("readystatechange", function() {
+		if(this.readyState === 4) {
+			if(url.endsWith("timereg_direct.aspx")) {
+				console.log('Getting Bugzilla-hours after pagechange.');
+				getBugzillaHoursForWeek();
+			}
+		}
+        }, false);
+	open.call(this, method, url, async, user, pass);
+    };
+})(XMLHttpRequest.prototype.open);
 
 function getBugzillaHoursForWeek() {
     var cssTxt  = GM_getResourceText("bootstrapCss");
