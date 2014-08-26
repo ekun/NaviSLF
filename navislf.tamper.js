@@ -4,7 +4,7 @@
 // @homepage    https://github.com/ekun/NaviSLF
 // @downloadURL https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
 // @updateURL   https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
-// @version    0.7.1
+// @version    0.7.2
 // @description  Imports SLF-bugzilla hours into Naviwep
 // @match      https://naviwep.steria.no/NaviWEB/*
 // @copyright  2014+, Marius Nedal Glittum
@@ -199,13 +199,9 @@ function logHendelse(message) {
 function resetErrorField() {
     var errorField = $("[id$='NaviSLFLogField']");
     
-    if(errorField.length == 0) {
-        $("[class='CurrentPeriod']").after("<div class='row' style='padding-top: 10px;'><div class='col-md-4' style='float: none; margin: 0 auto;'><div id='NaviSLFLogField' class='alert alert-danger'><strong>Feil</strong></div></div></div>");
-        errorField = $("[id$='NaviSLFLogField']");
+    if(errorField.length > 0) {
+        errorField.remove();
     }
-    
-    errorField.empty();
-    errorfield.append("<strong>Feil</strong>");
 }
 
 function killThoseEffingMenuAnimations(){
