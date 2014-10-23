@@ -4,7 +4,7 @@
 // @homepage    https://github.com/ekun/NaviSLF
 // @downloadURL https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
 // @updateURL   https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
-// @version    0.7.2
+// @version    0.7.3
 // @description  Imports SLF-bugzilla hours into Naviwep
 // @match      https://naviwep.steria.no/NaviWEB/*
 // @copyright  2014+, Marius Nedal Glittum
@@ -62,6 +62,7 @@ function getBugzillaHoursForWeek() {
     var userString = $("[id$='UserInfo']").text();
     var username = userString.substring(userString.indexOf("(")+1, userString.indexOf(")")).toLowerCase();
     console.log('Located steria username: ' + username);
+    
     if(username === "cfornes") {
         username = "camf";
     }
@@ -88,28 +89,6 @@ function getBugzillaHoursForWeek() {
             }
         }
     });
-    
-    /*GM_xmlhttpRequest({
-        method: "GET",
-                url: 'https://utv-appserver01.slf.dep.no/bugzfront/timer/admin?user='+ username +'&start=' + startDate + '&end=' + endDate ,
-        onload: function(response) {
-            console.log("Henter ADMIN-timer for perioden "+startDate+" til "+endDate+".");
-            if(response.status == 200) {
-                result = eval('(' + response.responseText + ')');
-    
-                details = result;
-    
-                if(!details['exception']) {
-                	for (var index in details) {
-                    		var project = details[index];
-                    		updateAdminNaviwepField(project, dates);
-                	}
-		}
-            } else {
-		logHendelse("<p style='margin: 0; padding:0;'>Fikk ikke kontakt med Bugzfront for å hente admintimer.</p>");
-            }
-        }
-    }); */
 }
 
 function getDateRange() {
