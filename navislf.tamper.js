@@ -108,6 +108,28 @@ function getDateRange() {
     return dates;
 }
 
+function addNaviSlfFlexField() {
+    var flexField = $("[id$='NaviSlfFlexField']");
+    if(flexField.length == 0) {
+    	$('.rgFooter:last').after("<tr class='rgFooter'> "+
+	"<td style='font-weight:bold;'></td>"+
+	"<td style='font-weight:bold;'></td>"+
+	"<td style='font-weight:bold;'></td>"+
+	"<td style='font-weight:bold;'></td>"+
+	"<td style='font-weight:bold;'>Månedsflex:</td>"+
+	"<td style='font-weight:bold;'></td>"+
+	"<td style='font-weight:bold;'></td>"+
+	"<td style='font-weight:bold;'></td>"+
+	"<td style='font-weight:bold;'></td>"+
+	"<td style='font-weight:bold;'></td>"+
+	"<td style='font-weight:bold;'></td>"+
+	"<td style='font-weight:bold;'></td>"+
+	"<td style='font-weight:bold;'></td>"+
+	"<td id='NaviSlfFlexField' align='right' style='font-weight:bold;'>0</td>"+
+	"</tr>");
+    }
+}
+
 function updateNaviwepField(project, dates) {
     var projectName = project[0];
     var clientName = project[1];
@@ -129,35 +151,6 @@ function updateNaviwepField(project, dates) {
         trInDom.css('background-color', '#39b3d7');
         var md = trInDom.find('input[id$="_RNTB_' + date + '"]');
         md.val(hours);
-        md.width("100px");
-    } else {
-        projectNotFound(projectName, clientName, hours);
-    }
-}
-
-function updateAdminNaviwepField(project, dates) {
-    var projectName = project[0];
-    var clientName = project[1];
-    var hours = project[2];
-    var date = project[3];
-    var trInDom = $("tr:contains(" + projectName + ")");
-    console.log(date + ' :: Updating ' + projectName + ' for ' + clientName + ' with ' + hours + ' hours.');
-    
-    if(projectName === "MELK") {
-	projectName = projectName + "):not(:contains(LDB)";
-    }
-    
-    if(clientName !== "Bugzilla") {
-	trInDom = $("tr:contains(" + projectName + "):contains(" + clientName + ")");
-    } else {
-        trInDom = $("tr:contains(" + projectName + "):contains(Bugzilla):not(:contains(ikke Bugzilla))");
-    }
-    if(trInDom.length === 1) {
-        trInDom.css('background-color', '#39b3d7');
-        var md = trInDom.find('input[id$="_RNTB_' + date + '"]');
-        var verdi = +(md.text());
-
-        md.val(verdi+hours);
         md.width("100px");
     } else {
         projectNotFound(projectName, clientName, hours);
