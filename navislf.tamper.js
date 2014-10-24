@@ -4,7 +4,7 @@
 // @homepage    https://github.com/ekun/NaviSLF
 // @downloadURL https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
 // @updateURL   https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
-// @version    0.7.7
+// @version    0.7.8
 // @description  Imports SLF-bugzilla hours into Naviwep
 // @match      https://naviwep.steria.no/NaviWEB/*
 // @copyright  2014+, Marius Nedal Glittum
@@ -76,6 +76,8 @@ function getBugzillaHoursForWeek() {
 		"<a href='http://utv-appserver01.slf.dep.no/bugzfront/timer/details?user=" + username + "&start=" + startDate + "&end=" + endDate +"' target=_BLANK class='rmLink rmRootLink' style='font-size:Medium;font-weight:normal;'><span class='rmText rmExpandDown'>Grunnlag fra Bugzilla</span></a>" +
 		"</li>");
     }
+    
+    addNaviSlfFlexField();
 
     GM_xmlhttpRequest({
         method: "GET",
