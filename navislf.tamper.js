@@ -4,7 +4,7 @@
 // @homepage    https://github.com/ekun/NaviSLF
 // @downloadURL https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
 // @updateURL   https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
-// @version    0.7.8
+// @version    0.7.9
 // @description  Imports SLF-bugzilla hours into Naviwep
 // @match      https://naviwep.steria.no/NaviWEB/*
 // @copyright  2014+, Marius Nedal Glittum
@@ -113,23 +113,26 @@ function getDateRange() {
 function addNaviSlfFlexField() {
     var flexField = $("[id$='NaviSlfFlexField']");
     if(flexField.length == 0) {
-    	$('.rgFooter:last').after("<tr class='rgFooter'> "+
-	"<td style='font-weight:bold;'></td>"+
-	"<td style='font-weight:bold;'></td>"+
-	"<td style='font-weight:bold;'></td>"+
-	"<td style='font-weight:bold;'></td>"+
-	"<td style='font-weight:bold;'>Månedsflex:</td>"+
-	"<td style='font-weight:bold;'></td>"+
-	"<td style='font-weight:bold;'></td>"+
-	"<td style='font-weight:bold;'></td>"+
-	"<td style='font-weight:bold;'></td>"+
-	"<td style='font-weight:bold;'></td>"+
-	"<td style='font-weight:bold;'></td>"+
-	"<td style='font-weight:bold;'></td>"+
-	"<td style='font-weight:bold;'></td>"+
-	"<td id='NaviSlfFlexField' align='right' style='font-weight:bold;'>0</td>"+
-	"</tr>");
+        var htmlString = buildFlexFieldString();
+    	$('.rgFooter:last').after(htmlString);
     }
+}
+
+function buildFlexFieldString() {
+    var flexFieldString = "<tr class='rgFooter'>";
+    var collumnCount = $('.rgFooter:first td').size();
+    
+    for(i = 0; i < collumnCount-1; i++) {
+        if(i === 4) {
+            flexFieldString += "<td style='font-weight:bold;'>Månedsflex:</td>";
+        } else {
+            flexFieldString += "<td style='font-weight:bold;'></td>";
+        }
+    }
+    flexFieldString += "<td id='NaviSlfFlexField' align='right' style='font-weight:bold;'>0</td>";
+    flexFieldString += "</tr>";
+    
+    return flexFieldString;
 }
 
 function updateNaviwepField(project, dates) {
