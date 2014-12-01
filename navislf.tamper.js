@@ -77,7 +77,7 @@ function getBugzillaHoursForWeek() {
 		"</li>");
     }
     
-    addNaviSlfFlexField();
+    //addNaviSlfFlexField();
 
     GM_xmlhttpRequest({
         method: "GET",
