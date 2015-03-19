@@ -4,7 +4,7 @@
 // @homepage    https://github.com/ekun/NaviSLF
 // @downloadURL https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
 // @updateURL   https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
-// @version    0.8.1
+// @version    0.8.2
 // @description  Imports SLF-bugzilla hours into Naviwep
 // @match      https://naviwep.steria.no/NaviWEB/*
 // @copyright  2014+, Marius Nedal Glittum
@@ -144,7 +144,7 @@ function updateNaviwepField(project, dates) {
     console.log(date + ' :: Updating ' + projectName + ' for ' + clientName + ' with ' + hours + ' hours.');
     
     if(projectName === "MELK") {
-	projectName = projectName + "):not(:contains(LDB)";
+	projectName = projectName + "):not(:contains(LDB):not(:contains(Modernisering)";
     }
     
     if(clientName !== "Bugzilla") {
