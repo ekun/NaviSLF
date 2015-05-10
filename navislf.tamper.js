@@ -151,7 +151,7 @@ function buildFlexFieldString() {
 function getFlexAbleHoursSelectedMonth() {
     var dates = getDateRange();
     var firstMonth = dates[0].substring(0, 6);
-    var lastMonth = dates[0].substring(0, 6);
+    var lastMonth = dates[dates.size()].substring(0, 6);
     var flexableHours = getFlexhoursFromMonth(firstMonth);;
 
     var flexString = "" + flexableHours;
