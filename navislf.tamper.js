@@ -151,11 +151,10 @@ function getFlexAbleHoursSelectedMonth() {
     var dates = getDateRange();
     var firstMonth = dates[0].substring(0, 6);
     var lastMonth = dates[0].substring(0, 6);
-    var flexableHours = 0;
+    var flexableHours = getFlexhoursFromMonth(firstMonth);;
 
-    var flexString = "";
+    var flexString = "" + flexableHours;
 
-    flexableHours = getFlexhoursFromMonth(firstMonth);
     if(firstMonth !== lastMonth) {
         flexString = getMonthString(firstMonth.substring(4,6)) + ": " + flexableHours + ", ";
         flexString += getMonthString(lastMonth.substring(4,6)) + ": " + getFlexhoursFromMonth(lastMonth);
@@ -188,9 +187,9 @@ function getFlexhoursFromMonth(month) {
         if(valueName.startsWith(month)) {
             val = GM_getValue(valueName); 
             flexableHours = Number(Number(val) + Number(flexableHours));
-            GM_log(valueName + " -> " + Number(val));
         }
     }
+    GM_log(flexableHours);
     return flexableHours;
 }
 
