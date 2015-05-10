@@ -155,7 +155,7 @@ function getFlexAbleHoursSelectedMonth() {
     var flexableHours = getFlexhoursFromMonth(firstMonth);;
 
     var flexString = "" + flexableHours;
-
+    GM_log(firstMonth + " :: " + lastMonth)
     if(firstMonth !== lastMonth) {
         flexString = getMonthString(firstMonth.substring(4,6)) + ": " + flexableHours + ", ";
         flexString += getMonthString(lastMonth.substring(4,6)) + ": " + getFlexhoursFromMonth(lastMonth);
