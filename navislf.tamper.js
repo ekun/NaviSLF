@@ -4,7 +4,7 @@
 // @homepage    https://github.com/ekun/NaviSLF
 // @downloadURL https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
 // @updateURL   https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
-// @version    0.9.0b
+// @version    0.9.1
 // @description  Imports SLF-bugzilla hours into Naviwep
 // @match      https://naviwep.steria.no/NaviWEB/*
 // @copyright  2014+, Marius Bækken Glittum
@@ -123,10 +123,11 @@ function getDateRange() {
 
 function addNaviSlfFlexField() {
     var flexField = $("[id$='NaviSlfFlexField']");
-    if(flexField.length == 0) {
-        var htmlString = buildFlexFieldString();
-        $('.rgFooter:last').after(htmlString);
+    if(flexField.length !== 0) {
+        flexField.remove();
     }
+    var htmlString = buildFlexFieldString();
+    $('.rgFooter:last').after(htmlString);
 }
 
 function buildFlexFieldString() {
