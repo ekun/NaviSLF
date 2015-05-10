@@ -189,7 +189,6 @@ function getFlexhoursFromMonth(month) {
             flexableHours = Number(Number(val) + Number(flexableHours));
         }
     }
-    GM_log(flexableHours);
     return flexableHours;
 }
 
