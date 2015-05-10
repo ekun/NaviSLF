@@ -17,12 +17,9 @@ Installering
 
 Features
 --------
-* **NY**: Fjernet animasjoner (Fra NaviSane)
-* **NY**: Sentrerer inputfelt i timetabellen (Fra NaviSane)
+* **NY**: Regner ut flex per måned, lagrer timeforbruk i GlobalStorrage
+* Fjernet animasjoner (Fra NaviSane)
+* Sentrerer inputfelt i timetabellen (Fra NaviSane)
 * Twitter Bootstrap styling for tilbakemeldinger
 * Henter ut timer basert på Steria-brukernavn og periode
-
-TODO
-----
-* Integrere NaviSane funksjoner inn i scriptet
 
