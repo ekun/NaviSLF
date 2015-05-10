@@ -4,7 +4,7 @@
 // @homepage    https://github.com/ekun/NaviSLF
 // @downloadURL https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
 // @updateURL   https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
-// @version    0.9.2
+// @version    0.9.3
 // @description  Imports SLF-bugzilla hours into Naviwep
 // @match      https://naviwep.steria.no/NaviWEB/*
 // @copyright  2014+, Marius Bækken Glittum
@@ -56,6 +56,20 @@ function initPage(){
     };
 })(XMLHttpRequest.prototype.open);
 
+function getUsername() {
+    var userString = $("[id$='UserInfo']").text();
+    var username = userString.substring(userString.indexOf("(")+1, userString.indexOf(")")).toLowerCase();
+    
+    if(username === "cfornes") {
+        username = "camf";
+    }
+    if(username === "iholen") {
+        username = "ikh";
+    }
+    
+    return username;
+}
+
 function getBugzillaHoursForWeek() {
     var cssTxt  = GM_getResourceText("bootstrapCss");
     GM_addStyle (cssTxt);
@@ -65,17 +79,10 @@ function getBugzillaHoursForWeek() {
     var dates = getDateRange();
     var startDate = dates[0].substring(0,4) + '-' + dates[0].substring(4,6) + '-' + dates[0].substring(6);
     var endDate = dates[(dates.length-1)].substring(0,4) + '-' + dates[(dates.length-1)].substring(4,6) + '-' + dates[(dates.length-1)].substring(6);
-    var userString = $("[id$='UserInfo']").text();
-    var username = userString.substring(userString.indexOf("(")+1, userString.indexOf(")")).toLowerCase();
+
+    var username = getUsername();
     GM_log('Located steria username: ' + username);
     GM_log('Detected date-range: '+startDate+ ' -> ' +endDate);
-
-    if(username === "cfornes") {
-        username = "camf";
-    }
-    if(username === "iholen") {
-        username = "ikh";
-    }
 
     storeFlexFromThisPeriode();
     addNaviSlfFlexField();
@@ -104,10 +111,11 @@ function getBugzillaHoursForWeek() {
 
 function storeFlexFromThisPeriode() {
     var dates = getDateRange();
+    var username = getUsername();
     for (var i = 0; i < dates.length; i++) {
         var flexHoursForDay = Number($('.rgFooter:last td:eq('+(i+6)+')').text().replace(",", "."));
         var date = "" + dates[i];
-        GM_setValue(date, flexHoursForDay);
+        GM_setValue(username+"-"+date, flexHoursForDay);
     }
 }
 
@@ -186,9 +194,10 @@ function getMonthString(monthString) {
 
 function getFlexhoursFromMonth(month) {
     var flexableHours = 0;
+    var username = getUsername();
     for(var i in GM_listValues()) {
         var valueName = GM_listValues()[i];
-        if(valueName.startsWith(month)) {
+        if(valueName.startsWith(username+"-"+month)) {
             val = GM_getValue(valueName); 
             flexableHours = Number(Number(val) + Number(flexableHours));
         }
