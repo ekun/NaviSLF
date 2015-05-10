@@ -4,7 +4,7 @@
 // @homepage    https://github.com/ekun/NaviSLF
 // @downloadURL https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
 // @updateURL   https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
-// @version    0.9.1
+// @version    0.9.2
 // @description  Imports SLF-bugzilla hours into Naviwep
 // @match      https://naviwep.steria.no/NaviWEB/*
 // @copyright  2014+, Marius Bækken Glittum
@@ -151,11 +151,11 @@ function buildFlexFieldString() {
 function getFlexAbleHoursSelectedMonth() {
     var dates = getDateRange();
     var firstMonth = dates[0].substring(0, 6);
-    var lastMonth = dates[dates.size()].substring(0, 6);
+    var lastMonth = dates[dates.length-1].substring(0, 6);
     var flexableHours = getFlexhoursFromMonth(firstMonth);;
 
     var flexString = "" + flexableHours;
-    GM_log(firstMonth + " :: " + lastMonth)
+
     if(firstMonth !== lastMonth) {
         flexString = getMonthString(firstMonth.substring(4,6)) + ": " + flexableHours + ", ";
         flexString += getMonthString(lastMonth.substring(4,6)) + ": " + getFlexhoursFromMonth(lastMonth);
@@ -165,19 +165,22 @@ function getFlexAbleHoursSelectedMonth() {
 }
 
 function getMonthString(monthString) {
+    if(monthString.startsWith("0")) {
+        monthString = monthString.substring(1,2);
+    }
     var month = new Array();
-    month[01] = "Januar";
-    month[02] = "Februar";
-    month[03] = "March";
-    month[04] = "April";
-    month[05] = "May";
-    month[06] = "June";
-    month[07] = "July";
-    month[08] = "August";
-    month[09] = "September";
-    month[10] = "October";
+    month[1] = "Januar";
+    month[2] = "Februar";
+    month[3] = "Mars";
+    month[4] = "April";
+    month[5] = "Mai";
+    month[6] = "Juni";
+    month[7] = "Juli";
+    month[8] = "August";
+    month[9] = "September";
+    month[10] = "Oktober";
     month[11] = "November";
-    month[12] = "December";
+    month[12] = "Desember";
     return month[monthString];
 }
 
