@@ -182,7 +182,7 @@ function getMonthString(monthString) {
 }
 
 function getFlexhoursFromMonth(month) {
-    var flexableHours
+    var flexableHours = 0;
     for(var i in GM_listValues()) {
         var valueName = GM_listValues()[i];
         if(valueName.startsWith(month)) {
