@@ -2,9 +2,9 @@
 // @name       NaviSLF
 // @namespace  https://github.com/ekun/NaviSLF
 // @homepage    https://github.com/ekun/NaviSLF
-// @downloadURL https://raw.github.com/ekun/NaviSLF/master/navislf.tamper.js
-// @updateURL   https://raw.github.com/ekun/NaviSLF/master/navislf.tamper.js
-// @version    0.9.0a
+// @downloadURL https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
+// @updateURL   https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
+// @version    0.9.0b
 // @description  Imports SLF-bugzilla hours into Naviwep
 // @match      https://naviwep.steria.no/NaviWEB/*
 // @copyright  2014+, Marius Bækken Glittum
