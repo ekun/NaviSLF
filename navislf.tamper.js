@@ -84,9 +84,6 @@ function getBugzillaHoursForWeek() {
     GM_log('Located steria username: ' + username);
     GM_log('Detected date-range: '+startDate+ ' -> ' +endDate);
 
-    storeFlexFromThisPeriode();
-    addNaviSlfFlexField();
-
     GM_xmlhttpRequest({
         method: "GET",
         url: 'https://utv-appserver01.slf.dep.no/bugzfront/timer/weekly?user=' + username + '&start=' + startDate + '&end=' + endDate ,
@@ -106,6 +103,9 @@ function getBugzillaHoursForWeek() {
             }
         }
     });
+    
+    storeFlexFromThisPeriode();
+    addNaviSlfFlexField();
 }
 
 
