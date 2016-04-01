@@ -11,6 +11,13 @@
 // @require     http://code.jquery.com/jquery-1.10.1.min.js
 // @resource 	bootstrapCss	https://raw.githubusercontent.com/ekun/navislf/master/css/bootstrap.css
 // @resource 	bootstrap2Css	https://raw.githubusercontent.com/ekun/navislf/master/css/bootstrap-theme.css
+// @grant GM_log
+// @grant GM_getResourceText
+// @grant GM_xmlhttpRequest
+// @grant GM_addStyle
+// @grant GM_setValue
+// @grant GM_getValue
+// @grant GM_listValues
 // ==/UserScript==
 /*
  * Utvikler tar ikke ansvar for at timene blir feil i NaviWep 
