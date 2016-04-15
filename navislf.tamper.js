@@ -4,7 +4,7 @@
 // @homepage    https://github.com/ekun/NaviSLF
 // @downloadURL https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
 // @updateURL   https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
-// @version    1.0
+// @version    1.0.1
 // @description  Imports SLF-bugzilla hours into Naviwep
 // @match      https://naviwep.steria.no/NaviWEB/*
 // @copyright  2014+, Marius Bækken Glittum
@@ -41,11 +41,40 @@ $.expr[":"].contains = $.expr.createPseudo(function(arg) {
 
 function initPage(){
     killThoseEffingMenuAnimations();
+    sanePeriodNavigation();
     saneCellAlignment();
 
     if(document.location.pathname.endsWith("timereg_direct.aspx")) {
         getBugzillaHoursForWeek();
     }
+}
+
+function currentPeriod() {
+    var header = $("#ctl00_ContentPlaceHolder1_LBL_CurrentPeriod").text();
+    return header.replace(/^.*(\d\d\.\d\d\.\d\d\d\d - \d\d\.\d\d\.\d\d\d\d).*$/, "$1");
+}
+
+function sanePeriodNavigation() {
+    $(".CurrentPeriod")
+        .prepend("<button type='button' id='prevPeriod'>◀</button>")
+        .append("<button type='button' id='nextPeriod'>▶</button>")
+    ;
+
+    $("#prevPeriod").click(function () {
+        var period = currentPeriod();
+        var dropdown = $("#ctl00_ContentPlaceHolder1_PeriodDropdownList_Arrow").get(0);
+        dropdown.click();
+        var thisItem = $("li.rcbItem:contains('" + period + "')");
+        thisItem.next().click();
+    });
+
+    $("#nextPeriod").click(function () {
+        var period = currentPeriod();
+        var dropdown = $("#ctl00_ContentPlaceHolder1_PeriodDropdownList_Arrow").get(0);
+        dropdown.click();
+        var thisItem = $("li.rcbItem:contains('" + period + "')");
+        thisItem.prev().click();
+    });
 }
 
 (function(open) {
