@@ -288,7 +288,9 @@ function saneCellAlignment(){
 }
 
 function projectNotFound(date, projectName, clientName, hours) {
-    logHendelse("<p style='margin: 0; padding:0;'>"+date+" Fant ikke NaviWep prosjektet <b>"+projectName+"</b> med komponent <b>"+clientName+"</b>. ("+hours+"t)</p>");
+    if(hours > 0) {
+        logHendelse("<p style='margin: 0; padding:0;'>"+date+" Fant ikke NaviWep prosjektet <b>"+projectName+"</b> med komponent <b>"+clientName+"</b>. ("+hours+"t)</p>");
+    }
 }
 
 function logHendelse(message) {
