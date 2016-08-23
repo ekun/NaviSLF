@@ -4,9 +4,10 @@
 // @homepage    https://github.com/ekun/NaviSLF
 // @downloadURL https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
 // @updateURL   https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
-// @version    1.0.4
+// @version    1.0.5
 // @description  Imports SLF-bugzilla hours into Naviwep
 // @match      https://naviwep.steria.no/NaviWEB/*
+// @match      http://a01-p3-app012/NAVWeb/*
 // @include https://naviwep.steria.no/NaviWEB/*
 // @copyright  2014+, Marius Bækken Glittum
 // @require     http://code.jquery.com/jquery-1.10.1.min.js
@@ -21,7 +22,7 @@
 // @grant GM_listValues
 // ==/UserScript==
 /*
- * Utvikler tar ikke ansvar for at timene blir feil i NaviWep 
+ * Utvikler tar ikke ansvar for at timene blir feil i NaviWep
  */
 
 String.prototype.endsWith = function(suffix) {
@@ -47,7 +48,12 @@ function initPage(){
 
     if(document.location.pathname.endsWith("timereg_direct.aspx")) {
         getBugzillaHoursForWeek();
+        $('.rgCommandCell:first td:last').after('<td><input type="button" value="Hent timer fra Bugzilla" id="naviSLF_fetchHours" style="margin-left: 3px; font-size: 85%;width: 100%"></td>');
+        $('#naviSLF_fetchHours').click(function() {
+            getBugzillaHoursForWeek();
+        });
     }
+
 }
 
 function currentPeriod() {
@@ -96,7 +102,7 @@ function sanePeriodNavigation() {
 function getUsername() {
     var userString = $("[id$='UserInfo']").text();
     var username = userString.substring(userString.indexOf("(")+1, userString.indexOf(")")).toLowerCase();
-    
+
     if(username === "cfornes") {
         username = "camf";
     }
@@ -109,7 +115,7 @@ function getUsername() {
     if(username === "eutsogn") {
         username = "egil.utsogn";
     }
-    
+
     return username;
 }
 
@@ -146,7 +152,6 @@ function getBugzillaHoursForWeek() {
             }
         }
     });
-    
     storeFlexFromThisPeriode();
     addNaviSlfFlexField();
 }
@@ -164,7 +169,7 @@ function storeFlexFromThisPeriode() {
 
 function getDateRange() {
     var days = $("a[title^='Date']" );
-    var dates = new Array();
+    var dates = [];
     for (var i = 0; i < days.length; i++) {
         dates[i] = days[i].title.substring(6);
     }
@@ -203,7 +208,7 @@ function getFlexAbleHoursSelectedMonth() {
     var dates = getDateRange();
     var firstMonth = dates[0].substring(0, 6);
     var lastMonth = dates[dates.length-1].substring(0, 6);
-    var flexableHours = getFlexhoursFromMonth(firstMonth);;
+    var flexableHours = getFlexhoursFromMonth(firstMonth);
 
     var flexString = "" + flexableHours;
 
@@ -219,7 +224,7 @@ function getMonthString(monthString) {
     if(monthString.startsWith("0")) {
         monthString = monthString.substring(1,2);
     }
-    var month = new Array();
+    var month = [];
     month[1] = "Januar";
     month[2] = "Februar";
     month[3] = "Mars";
@@ -241,7 +246,7 @@ function getFlexhoursFromMonth(month) {
     for(var i in GM_listValues()) {
         var valueName = GM_listValues()[i];
         if(valueName.startsWith(username+"-"+month)) {
-            val = GM_getValue(valueName); 
+            val = GM_getValue(valueName);
             flexableHours = Number(Number(val) + Number(flexableHours));
         }
     }
@@ -277,7 +282,7 @@ function updateNaviwepField(project, dates) {
 
 function flexfieldExists() {
     var flexField = $("[id$='NaviSlfFlexField']");
-    if(flexField.length == 0) {
+    if(flexField.length === 0) {
         return false;
     }
     return true;
@@ -296,7 +301,7 @@ function projectNotFound(date, projectName, clientName, hours) {
 function logHendelse(message) {
     var errorField = $("[id$='NaviSLFLogField']");
 
-    if(errorField.length == 0) {
+    if(errorField.length === 0) {
         $("[class='CurrentPeriod']").after("<div class='row' style='padding-top: 10px;'><div class='col-md-4' style='float: none; margin: 0 auto;'><div id='NaviSLFLogField' class='alert alert-danger'><strong>Feil</strong></div></div></div>");
         errorField = $("[id$='NaviSLFLogField']");
     }
@@ -315,6 +320,6 @@ function killThoseEffingMenuAnimations(){
     Telerik.Web.UI.AnimationSettings.prototype.get_type = function(){return 0;};
     Telerik.Web.UI.AnimationSettings.prototype.get_duration = function(){return 0;};
     Telerik.Web.UI.RadMenu.prototype.get_collapseDelay = function(){return 0;};
-}  
+}
 
 initPage();
