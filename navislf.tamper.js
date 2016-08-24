@@ -4,10 +4,10 @@
 // @homepage    https://github.com/ekun/NaviSLF
 // @downloadURL https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
 // @updateURL   https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
-// @version    1.0.6
+// @version    1.0.7
 // @description  Imports SLF-bugzilla hours into Naviwep
 // @match      https://naviwep.steria.no/NAVWeb/*
-// @match      http://a01-p3-app012/NAVWeb/*
+// @match      https://195.204.41.20/NAVWeb/*
 // @include https://naviwep.steria.no/NaviWEB/*
 // @copyright  2014+, Marius Bækken Glittum
 // @require     http://code.jquery.com/jquery-1.10.1.min.js
@@ -48,10 +48,6 @@ function initPage(){
 
     if(document.location.pathname.endsWith("timereg_direct.aspx")) {
         getBugzillaHoursForWeek();
-        $('.rgCommandCell:first td:last').after('<td><input type="button" value="Hent timer fra Bugzilla" id="naviSLF_fetchHours" style="margin-left: 3px; font-size: 85%;width: 100%"></td>');
-        $('#naviSLF_fetchHours').click(function() {
-            getBugzillaHoursForWeek();
-        });
     }
 
 }
