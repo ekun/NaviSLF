@@ -4,7 +4,7 @@
 // @homepage    https://github.com/ekun/NaviSLF
 // @downloadURL https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
 // @updateURL   https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
-// @version    1.0.7
+// @version    1.0.8
 // @description  Imports SLF-bugzilla hours into Naviwep
 // @match      https://naviwep.steria.no/NAVWeb/*
 // @match      https://195.204.41.20/NAVWeb/*
@@ -99,15 +99,6 @@ function getUsername() {
     var userString = $("[id$='UserInfo']").text();
     var username = userString.substring(userString.indexOf("(")+1, userString.indexOf(")")).toLowerCase();
 
-    if(username === "cfornes") {
-        username = "camf";
-    }
-    if(username === "iholen") {
-        username = "ikh";
-    }
-    if(username === "olovik") {
-        username = "oistein-sletten.lovik";
-    }
     if(username === "eutsogn") {
         username = "egil.utsogn";
     }
@@ -267,7 +258,7 @@ function updateNaviwepField(project, dates) {
         trInDom = $("tr:contains(" + projectName + "):contains(Bugzilla):not(:contains(ikke Bugzilla))");
     }
     if(trInDom.length === 1) {
-        trInDom.css('background-color', '#39b3d7');
+        trInDom.css('background-color', '#d9edf7');
         var md = trInDom.find('input[id$="_RNTB_' + date + '"]');
         md.val(hours);
         md.width("100px");
