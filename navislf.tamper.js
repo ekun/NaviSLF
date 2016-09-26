@@ -4,7 +4,7 @@
 // @homepage    https://github.com/ekun/NaviSLF
 // @downloadURL https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
 // @updateURL   https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
-// @version    1.0.10
+// @version    1.0.11
 // @description  Imports SLF-bugzilla hours into Naviwep
 // @match      https://naviwep.steria.no/NAVWeb/*
 // @match      https://195.204.41.20/NAVWeb/*
@@ -53,6 +53,7 @@ function initPage(){
     killThoseEffingMenuAnimations();
     sanePeriodNavigation();
     saneCellAlignment();
+    $('.CurrentPeriod').after('<div id="naviSlfCtrl" class="center" style="width: 100%;"></div>');
 
     renderToggleFetchingButton();
 
@@ -65,16 +66,17 @@ function initPage(){
 }
 
 function addFetchHoursButton() {
-    $('.rgCommandCell:first td:last').after('<td><input type="button" value="Hent timer fra Bugzilla" id="naviSLF_fetchHours" style="margin-left: 3px; font-size: 85%;width: 100%"></td>');
+    $('#naviSlfCtrl').append('<td><input type="button" class="btn btn-info" value="Hent timer fra Bugzilla" id="naviSLF_fetchHours" style="margin-left: 3px; font-size: 85%;"></td>');
     $('#naviSLF_fetchHours').click(function() {
         getBugzillaHoursForWeek();
     });
 }
 
 function renderToggleFetchingButton() {
-    var autoloadHours = GM_getValue('cfg.autoload', true);
-    var buttonText = autoloadHours ? "Deaktiver automatisk uthenting av timer" : "Aktiver automatisk uthenting av timer";
-    $('.rgCommandCell:first td:last').after('<td><input type="button" value="'+buttonText+'" id="naviSLF_toggleFetchHours" style="margin-left: 3px; font-size: 85%;width: 100%"></td>');
+    var autoloadHours = GM_getValue('cfg.autoload', "true");
+    var buttonText = autoloadHours === "true" ? "Deaktiver automatisk uthenting av timer" : "Aktiver automatisk uthenting av timer";
+    $('.CurrentPeriod').after('<div id="naviSlfCtrl" class="center"></div>');
+    $('#naviSlfCtrl').append('<input type="button" class="btn btn-info" value="'+buttonText+'" id="naviSLF_toggleFetchHours" style="margin-left: 3px; font-size: 85%;">');
     $('#naviSLF_toggleFetchHours').click(function() {
         var autoloadHours = GM_getValue('cfg.autoload', "true");
         if(autoloadHours === "true") {
@@ -124,10 +126,13 @@ function sanePeriodNavigation() {
     XMLHttpRequest.prototype.open = function(method, url, async, user, pass) {
         this.addEventListener("readystatechange", function() {
             if(this.readyState === 4) {
-                if((url.endsWith("timereg_direct.aspx") || url.endsWith("NAVWeb/")) && GM_getValue('cfg.autoload', "true") === "true") {
-                    GM_log('Getting Bugzilla-hours after pagechange.');
+                if((url.endsWith("timereg_direct.aspx") || url.endsWith("NAVWeb/"))) {
                     resetErrorField();
-                    getBugzillaHoursForWeek();
+                    if(GM_getValue('cfg.autoload', "true") === "true") {
+                        GM_log('Getting Bugzilla-hours after pagechange.');
+                        getBugzillaHoursForWeek();
+                    }
+                    addNaviSlfFlexField();
                 }
             }
         }, false);
