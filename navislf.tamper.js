@@ -4,7 +4,7 @@
 // @homepage    https://github.com/ekun/NaviSLF
 // @downloadURL https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
 // @updateURL   https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
-// @version    1.0.9
+// @version    1.0.10
 // @description  Imports SLF-bugzilla hours into Naviwep
 // @match      https://naviwep.steria.no/NAVWeb/*
 // @match      https://195.204.41.20/NAVWeb/*
@@ -56,7 +56,7 @@ function initPage(){
 
     renderToggleFetchingButton();
 
-    if(document.location.pathname.endsWith("timereg_direct.aspx") && GM_getValue('cfg.autoload', "true") === "true") {
+    if((document.location.pathname.endsWith("timereg_direct.aspx") || document.location.pathname.endsWith("NAVWeb/")) && GM_getValue('cfg.autoload', "true") === "true") {
         getBugzillaHoursForWeek();
     } else {
         addFetchHoursButton();
@@ -124,7 +124,7 @@ function sanePeriodNavigation() {
     XMLHttpRequest.prototype.open = function(method, url, async, user, pass) {
         this.addEventListener("readystatechange", function() {
             if(this.readyState === 4) {
-                if(url.endsWith("timereg_direct.aspx") && GM_getValue('cfg.autoload', "true") === "true") {
+                if((url.endsWith("timereg_direct.aspx") || url.endsWith("NAVWeb/")) && GM_getValue('cfg.autoload', "true") === "true") {
                     GM_log('Getting Bugzilla-hours after pagechange.');
                     resetErrorField();
                     getBugzillaHoursForWeek();
