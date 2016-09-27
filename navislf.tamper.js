@@ -4,7 +4,7 @@
 // @homepage    https://github.com/ekun/NaviSLF
 // @downloadURL https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
 // @updateURL   https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
-// @version    1.0.11
+// @version    1.0.12
 // @description  Imports SLF-bugzilla hours into Naviwep
 // @match      https://naviwep.steria.no/NAVWeb/*
 // @match      https://195.204.41.20/NAVWeb/*
@@ -61,8 +61,8 @@ function initPage(){
         getBugzillaHoursForWeek();
     } else {
         addFetchHoursButton();
+        addNaviSlfFlexField();
     }
-    addNaviSlfFlexField();
 }
 
 function addFetchHoursButton() {
