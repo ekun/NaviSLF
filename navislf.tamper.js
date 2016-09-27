@@ -132,7 +132,6 @@ function sanePeriodNavigation() {
                         GM_log('Getting Bugzilla-hours after pagechange.');
                         getBugzillaHoursForWeek();
                     }
-                    addNaviSlfFlexField();
                 }
             }
         }, false);
@@ -180,6 +179,7 @@ function getBugzillaHoursForWeek() {
         }
     });
     storeFlexFromThisPeriode();
+    addNaviSlfFlexField();
 }
 
 
