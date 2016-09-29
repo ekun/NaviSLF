@@ -4,7 +4,7 @@
 // @homepage    https://github.com/ekun/NaviSLF
 // @downloadURL https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
 // @updateURL   https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
-// @version    1.0.13
+// @version    1.0.14
 // @description  Imports SLF-bugzilla hours into Naviwep
 // @match      https://naviwep.steria.no/NAVWeb/*
 // @match      https://195.204.41.20/NAVWeb/*
@@ -66,7 +66,7 @@ function initPage(){
 }
 
 function addFetchHoursButton() {
-    $('#naviSlfCtrl').append('<input type="button" class="btn btn-info" value="Hent timer fra Bugzilla" id="naviSLF_fetchHours" style="margin-left: 3px; font-size: 85%;">');
+    $('#naviSlfCtrl').append('<input type="button" class="btn btn-primary" value="Hent timer fra Bugzilla" id="naviSLF_fetchHours" style="margin-left: 3px; font-size: 85%;">');
     $('#naviSLF_fetchHours').click(function() {
         getBugzillaHoursForWeek();
     });
@@ -75,7 +75,7 @@ function addFetchHoursButton() {
 function renderToggleFetchingButton() {
     var autoloadHours = GM_getValue('cfg.autoload', "true");
     var buttonText = autoloadHours === "true" ? "Deaktiver automatisk uthenting av timer" : "Aktiver automatisk uthenting av timer";
-    $('#naviSlfCtrl').append('<input type="button" class="btn btn-info" value="'+buttonText+'" id="naviSLF_toggleFetchHours" style="margin-left: 3px; font-size: 85%;">');
+    $('#naviSlfCtrl').append('<input type="button" class="btn btn-default" value="'+buttonText+'" id="naviSLF_toggleFetchHours" style="margin-left: 3px; font-size: 85%;">');
     $('#naviSLF_toggleFetchHours').click(function() {
         var autoloadHours = GM_getValue('cfg.autoload', "true");
         if(autoloadHours === "true") {
