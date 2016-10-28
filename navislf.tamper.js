@@ -4,7 +4,7 @@
 // @homepage    https://github.com/ekun/NaviSLF
 // @downloadURL https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
 // @updateURL   https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
-// @version    1.0.14
+// @version    1.0.15
 // @description  Imports SLF-bugzilla hours into Naviwep
 // @match      https://naviwep.steria.no/NAVWeb/*
 // @match      https://195.204.41.20/NAVWeb/*
@@ -142,8 +142,8 @@ function getUsername() {
     var userString = $("[id$='UserInfo']").text();
     var username = userString.substring(userString.indexOf("(")+1, userString.indexOf(")")).toLowerCase();
 
-    if(username === "eutsogn") {
-        username = "egil.utsogn";
+    if(username === "tmunchmo") {
+        username = "thorvald.munch";
     }
 
     return username;
