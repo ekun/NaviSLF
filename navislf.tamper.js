@@ -4,7 +4,7 @@
 // @homepage    https://github.com/ekun/NaviSLF
 // @downloadURL https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
 // @updateURL   https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
-// @version    1.0.15
+// @version    1.0.16
 // @description  Imports SLF-bugzilla hours into Naviwep
 // @match      https://naviwep.steria.no/NAVWeb/*
 // @match      https://195.204.41.20/NAVWeb/*
@@ -288,6 +288,8 @@ function updateNaviwepField(project, dates) {
 
     if(projectName === "MELK") {
         projectName = projectName + "):not(:contains(LDB)):not(:contains(Modernisering)";
+    } else if(projectName === "UTV:Kommunereguleringer") {
+        projectName = "UTV: Kommunereguleringer";
     }
 
     if(clientName !== "Bugzilla") {
