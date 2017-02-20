@@ -5,7 +5,7 @@
 // @downloadURL https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
 // @updateURL   https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
 // @version    1.1.2
-// @description  Imports SLF-bugzilla hours into Naviwep
+// @description  Imports Landbruksdirektoratet-bugzilla hours into Naviwep
 // @match      https://naviwep.steria.no/NAVWeb/*
 // @match      https://195.204.41.20/NAVWeb/*
 // @include https://naviwep.steria.no/NaviWEB/*
@@ -108,8 +108,8 @@ function currentPeriod() {
 
 function sanePeriodNavigation() {
     $(".CurrentPeriod")
-        .prepend("<button type='button' id='prevPeriod'>◀</button>")
-        .append("<button type='button' id='nextPeriod'>▶</button>")
+        .prepend("<button type='button' class='btn btn-sm' id='prevPeriod'>◀</button>")
+        .append("<button type='button' class='btn btn-sm' id='nextPeriod'>▶</button>")
     ;
 
     $("#prevPeriod").click(function () {
