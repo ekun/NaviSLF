@@ -4,7 +4,7 @@
 // @homepage    https://github.com/ekun/NaviSLF
 // @downloadURL https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
 // @updateURL   https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
-// @version    1.1.0
+// @version    1.1.1
 // @description  Imports SLF-bugzilla hours into Naviwep
 // @match      https://naviwep.steria.no/NAVWeb/*
 // @match      https://195.204.41.20/NAVWeb/*
@@ -77,6 +77,7 @@ function saneStylingOnCommandButtons() {
     $("input[id$='SaveRegistrations']").addClass("btn btn-default");
     $("input[id$='SaveRegistrations']").css("margin-bottom", "3px");
     $("input[id$='Approve']").addClass("btn btn-success");
+    setInterval(saneStylingOnCommandButtons, 2000);
 }
 
 function renderToggleFetchingButton() {
@@ -210,16 +211,17 @@ function getDateRange() {
 }
 
 function addNaviSlfFlexField() {
-    var flexField = $("[id$='NaviSlfFlexField']");
+    var flexField = $("[id$='NaviSlfFlexRow']");
     if(flexField.length !== 0) {
         flexField.remove();
     }
     var htmlString = buildFlexFieldString();
     $('.rgFooter:last').after(htmlString);
+    setInterval(addNaviSlfFlexField, 5000);
 }
 
 function buildFlexFieldString() {
-    var flexFieldString = "<tr class='rgFooter'>";
+    var flexFieldString = "<tr class='rgFooter' id='NaviSlfFlexRow'>";
     var collumnCount = $('.rgFooter:first td').size();
 
     for(i = 0; i < collumnCount-1; i++) {
