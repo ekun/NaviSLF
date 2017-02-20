@@ -4,7 +4,7 @@
 // @homepage    https://github.com/ekun/NaviSLF
 // @downloadURL https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
 // @updateURL   https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
-// @version    1.0.17
+// @version    1.1.0
 // @description  Imports SLF-bugzilla hours into Naviwep
 // @match      https://naviwep.steria.no/NAVWeb/*
 // @match      https://195.204.41.20/NAVWeb/*
@@ -53,6 +53,7 @@ function initPage(){
     killThoseEffingMenuAnimations();
     sanePeriodNavigation();
     saneCellAlignment();
+    saneStylingOnCommandButtons();
     $('.CurrentPeriod').after('<div class="content" style="margin: 5px 20px;"><div id="naviSlfCtrl" class="row" style="width: 100%;"></div></div>');
 
     renderToggleFetchingButton();
@@ -70,6 +71,12 @@ function addFetchHoursButton() {
     $('#naviSLF_fetchHours').click(function() {
         getBugzillaHoursForWeek();
     });
+}
+
+function saneStylingOnCommandButtons() {
+    $("input[id$='SaveRegistrations']").addClass("btn btn-default");
+    $("input[id$='SaveRegistrations']").css("margin-bottom", "3px");
+    $("input[id$='Approve']").addClass("btn btn-success");
 }
 
 function renderToggleFetchingButton() {
