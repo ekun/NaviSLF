@@ -217,7 +217,7 @@ function addNaviSlfFlexField() {
     }
     var htmlString = buildFlexFieldString();
     $('.rgFooter:last').after(htmlString);
-    setInterval(addNaviSlfFlexField, 5000);
+    setInterval(addNaviSlfFlexField, 2000);
 }
 
 function buildFlexFieldString() {
