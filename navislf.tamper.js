@@ -4,7 +4,7 @@
 // @homepage    https://github.com/ekun/NaviSLF
 // @downloadURL https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
 // @updateURL   https://raw.github.com/ekun/NaviToggl/master/navislf.tamper.js
-// @version    1.1.2
+// @version    1.1.3
 // @description  Imports Landbruksdirektoratet-bugzilla hours into Naviwep
 // @match      https://naviwep.steria.no/NAVWeb/*
 // @match      https://195.204.41.20/NAVWeb/*
@@ -217,7 +217,7 @@ function addNaviSlfFlexField() {
     }
     var htmlString = buildFlexFieldString();
     $('.rgFooter:last').after(htmlString);
-    setInterval(addNaviSlfFlexField, 2000);
+    setInterval(addNaviSlfFlexField, 5000);
 }
 
 function buildFlexFieldString() {
